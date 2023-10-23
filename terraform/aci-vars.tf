@@ -23,3 +23,8 @@ variable "dns_name_label" {
   type        = string
   default     = "exampleaci124"
 }
+
+variable "ARM_SUBSCRIPTION_ID"  {}
+variable "ARM_TENANT_ID"        {}
+variable "ARM_CLIENT_ID"        {}
+variable "ARM_CLIENT_SECRET"    {}
