@@ -1,22 +1,28 @@
-data "azurerm_client_config" "current" {}
 
-module "resource_group" {
-  source                                      = "../modules/resourcegroup"
-  environment                                 = var.environment
-  location                                    = var.location
-  main_project                                = var.main_project
-  sub_project                                 = var.sub_project
-  tags                                        = merge(var.tags, var.specific_tags)
+resource "azurerm_resource_group" "example" {
+   name     = var.resource_group_name
+  location = var.location
 }
 
+resource "azurerm_container_group" "example" {
+  name                = var.aci_name
+  location            = azurerm_resource_group.example.location
+  os_type             = "Linux"
+  resource_group_name = azurerm_resource_group.example.name
 
-module "aci" {
-  source      = "../modules/aci"
-  aci_name    = "locals.aci_name"
-  aci_location = ""
-  aci_image   = ""
-  aci_tags = {
-    environment = "development"
-    owner       = ""
+  container {
+    name   = "example-container"
+    image  = "nginx:latest"
+    cpu    = "0.5"
+    memory = "1.5"
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+  dns_name_label = var.dns_name_label  # Add this line
+
+  tags = {
+    environment = "testing"
   }
 }
