@@ -1,17 +1,25 @@
-variable "environment" { default = "dev" }              # should be coming from env folder for ex: tst.tfvars
-variable "tags" {
-    default = {
-        "MainProject" = "TechSlate"
-        "SubProject"  = "Containers"
-    }
+# variables.tf
+
+variable "aci_name" {
+  description = "Name for the Azure Container Instance"
+  type        = string
+  default     = "exam-aci124"
 }
 
-variable "ARM_SUBSCRIPTION_ID"  {}
-variable "ARM_TENANT_ID"        {}
-variable "ARM_CLIENT_ID"        {}
-variable "ARM_CLIENT_SECRET"    {}
+variable "location" {
+  description = "Location for the Azure Container Instance and Resource Group"
+  type        = string
+  default     = "East US"
+}
 
-variable "specific_tags"        { default = {} }
-variable "main_project"         { default = "calc" }
-variable "sub_project"          { default = "01" }
-variable "location"             { default = "uksouth" } # https://github.com/claranet/terraform-azurerm-regions/blob/master/regions.tf
+variable "resource_group_name" {
+  description = "Name for the Azure Resource Group"
+  type        = string
+  default     = "exam-resour124"
+}
+
+variable "dns_name_label" {
+  description = "DNS name label for the ACI"
+  type        = string
+  default     = "exampleaci124"
+}
